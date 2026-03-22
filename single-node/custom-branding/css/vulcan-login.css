@@ -1,0 +1,49 @@
+/**
+ * Vulcan Defense - Login screen custom styles
+ * Tela preta com design moderno
+ * 
+ * NOTA: O OpenSearch Dashboards não injeta CSS customizado nativamente.
+ * Para aplicar: use extensão de browser (Stylish, etc) ou proxy com sub_filter.
+ * O tema escuro (theme:darkMode) já é aplicado via config.
+ */
+
+/* Override para tela de login - fundo preto puro */
+.login-page,
+.security-login,
+[data-test-subj="loginContainer"],
+.euiPageBody {
+  background: #000000 !important;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.05) 0%, transparent 50%) !important;
+}
+
+/* Card de login com glassmorphism moderno */
+.security-login-form,
+.login-form-container {
+  background: rgba(20, 20, 20, 0.95) !important;
+  border: 1px solid rgba(255, 215, 0, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Inputs com estilo moderno */
+.security-login input,
+.login-form input {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 8px !important;
+}
+
+/* Animação sutil de fade-in */
+@keyframes vulcan-fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.security-login,
+.login-container {
+  animation: vulcan-fade-in 0.5s ease-out;
+}

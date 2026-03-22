@@ -1,0 +1,45 @@
+/**
+ * Vulcan Defense - Login screen custom styles
+ * Tela preta com design moderno animado
+ * 
+ * Para aplicar: extensão Stylus/Stylish no browser, URL:
+ * https://seu-host/ui/assets/vulcan-login.css
+ * 
+ * Ou adicione ao User CSS da extensão (conteúdo deste arquivo).
+ */
+.login-page,
+.security-login,
+[data-test-subj="loginContainer"],
+.euiPageBody {
+  background: #000000 !important;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.05) 0%, transparent 50%) !important;
+}
+
+.security-login-form,
+.login-form-container {
+  background: rgba(20, 20, 20, 0.95) !important;
+  border: 1px solid rgba(255, 215, 0, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 215, 0, 0.1) !important;
+}
+
+.security-login input,
+.login-form input {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 8px !important;
+}
+
+@keyframes vulcan-fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.security-login,
+.login-container {
+  animation: vulcan-fade-in 0.5s ease-out;
+}
