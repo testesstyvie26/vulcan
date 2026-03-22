@@ -22,3 +22,7 @@ $ docker compose up -d
 ```
 
 The environment takes about 1 minute to get up (depending on your Docker host) for the first time since Wazuh Indexer must be started for the first time and the indexes and index patterns must be generated.
+
+## Vulcan Defense - Custom Branding
+
+The dashboard is exposed on **port 443** via nginx (nginx.dashboard), which injects custom CSS for the black login screen with modern animations. Access the Wazuh UI at `https://localhost` (accept the self-signed certificate).

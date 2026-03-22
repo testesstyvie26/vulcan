@@ -1,5 +1,5 @@
-# Vulcan Defense custom logo animado (login/loading screen)
-customization.logo.app: "custom/images/vulcan-logo.svg"
+# Vulcan Defense custom logo (login/loading screen)
+customization.logo.app: "custom/images/vulcan-logo.png"
 
 hosts:
   - 1513629884013:

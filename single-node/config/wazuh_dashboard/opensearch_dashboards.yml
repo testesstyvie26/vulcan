@@ -15,19 +15,20 @@ uiSettings.overrides:
   defaultRoute: /app/wz-home
   "theme:darkMode": true
 
-# Login page - Vulcan Defense (título e logo animado)
-opensearch_security.ui.basicauth.login.title: "Vulcan Defense"
-opensearch_security.ui.basicauth.login.brandimage: "/plugins/wazuh/assets/custom/images/vulcan-logo.svg"
+# Login page - Vulcan Defense (título e logo)
+opensearch_security.ui.basicauth.login.title: "VULCAN DEFENSE"
+opensearch_security.ui.basicauth.login.brandimage: "/plugins/wazuh/assets/custom/images/vulcan-logo.png"
 opensearch_security.ui.basicauth.login.showbrandimage: true
 
 # Vulcan Defense custom branding (loading, header)
 opensearchDashboards.branding:
+  applicationTitle: "Vulcan Defense"
   loadingLogo:
-    defaultUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.svg"
-    darkModeUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.svg"
+    defaultUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.png"
+    darkModeUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.png"
   mark:
-    defaultUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.svg"
-    darkModeUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.svg"
+    defaultUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.png"
+    darkModeUrl: "/plugins/wazuh/assets/custom/images/vulcan-logo.png"
 # Session expiration settings
 opensearch_security.cookie.ttl: 900000
 opensearch_security.session.ttl: 900000

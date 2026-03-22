@@ -1,45 +1,476 @@
 /**
- * Vulcan Defense - Login screen custom styles
- * Tela preta com design moderno animado
- * 
- * Para aplicar: extensão Stylus/Stylish no browser, URL:
- * https://seu-host/ui/assets/vulcan-login.css
- * 
- * Ou adicione ao User CSS da extensão (conteúdo deste arquivo).
+ * VULCAN DEFENSE - Tela de login customizada
+ * Tema preto com animações modernas e acentos dourados
  */
+
+/* === Fundo preto com textura e gradientes sutis === */
 .login-page,
 .security-login,
 [data-test-subj="loginContainer"],
-.euiPageBody {
-  background: #000000 !important;
+.euiPageBody,
+.kbnLoginBody,
+body.security-login-page {
+  background: #0a0a0b !important;
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.05) 0%, transparent 50%) !important;
+    radial-gradient(ellipse 120% 80% at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 20% 50%, rgba(197, 160, 89, 0.02) 0%, transparent 40%),
+    radial-gradient(circle at 80% 50%, rgba(197, 160, 89, 0.02) 0%, transparent 40%) !important;
+  min-height: 100vh !important;
 }
 
+/* === Grid de partículas animadas (efeito digital) === */
+.login-page::before,
+.security-login::before,
+.euiPageBody::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: vulcan-grid-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes vulcan-grid-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* === Card de login - glassmorphism com borda dourada (apenas login) === */
 .security-login-form,
-.login-form-container {
-  background: rgba(20, 20, 20, 0.95) !important;
-  border: 1px solid rgba(255, 215, 0, 0.2) !important;
-  border-radius: 16px !important;
+.login-form-container,
+[data-test-subj="loginForm"],
+.security-login .euiPanel {
+  background: rgba(15, 15, 16, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 20px !important;
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 215, 0, 0.1) !important;
+    0 30px 60px -15px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+  position: relative;
+  z-index: 1;
 }
 
+/* Glow sutil no card */
+.security-login-form:hover,
+.login-form-container:hover {
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.7),
+    0 0 40px -10px rgba(212, 175, 55, 0.15),
+    0 0 0 1px rgba(212, 175, 55, 0.2) !important;
+  transition: box-shadow 0.4s ease;
+}
+
+/* === Logo com animação de entrada === */
+.security-login .login-brand img,
+[data-test-subj="loginBrand"] img,
+.login-form img[alt*="logo"],
+.login-form .euiImage {
+  animation: vulcan-logo-reveal 0.8s ease-out, vulcan-logo-glow 3s ease-in-out 0.5s infinite !important;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+}
+
+@keyframes vulcan-logo-reveal {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+@keyframes vulcan-logo-glow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2)); }
+  50% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.35)); }
+}
+
+/* === Inputs com estilo premium === */
 .security-login input,
-.login-form input {
-  background: rgba(0, 0, 0, 0.5) !important;
-  border: 1px solid rgba(255, 215, 0, 0.3) !important;
-  border-radius: 8px !important;
+.login-form input,
+.euiFieldText,
+.euiFieldPassword {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 10px !important;
+  color: #e8e6e3 !important;
+  transition: all 0.3s ease !important;
 }
 
+.security-login input:focus,
+.login-form input:focus,
+.euiFieldText:focus,
+.euiFieldPassword:focus {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15) !important;
+}
+
+.security-login input::placeholder,
+.login-form input::placeholder {
+  color: rgba(232, 230, 227, 0.5) !important;
+}
+
+/* === Botão de login === */
+.security-login button[type="submit"],
+.login-form button[type="submit"],
+.euiButton--fill {
+  background: linear-gradient(135deg, #c9a227 0%, #d4af37 50%, #b8960f 100%) !important;
+  border: none !important;
+  color: #0a0a0b !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.security-login button[type="submit"]:hover,
+.login-form button[type="submit"]:hover,
+.euiButton--fill:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* === Labels e texto === */
+.security-login label,
+.login-form label,
+.euiFormLabel {
+  color: rgba(232, 230, 227, 0.9) !important;
+}
+
+.security-login .euiTitle,
+.login-form .euiTitle,
+h1.security-login-title {
+  color: #d4af37 !important;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+/* === Animação de fade-in para o container === */
 @keyframes vulcan-fade-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(-15px) scale(0.98); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
 }
 
 .security-login,
-.login-container {
-  animation: vulcan-fade-in 0.5s ease-out;
+.login-container,
+[data-test-subj="loginCard"] {
+  animation: vulcan-fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* === Linha de brilho animada (efeito scan) === */
+.security-login-form::after,
+.login-form-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.1) 20%,
+    rgba(212, 175, 55, 0.4) 50%,
+    rgba(212, 175, 55, 0.1) 80%,
+    transparent 100%
+  );
+  animation: vulcan-scan 2.5s ease-in-out infinite;
+  border-radius: 20px 20px 0 0;
+}
+
+@keyframes vulcan-scan {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ==========================================================================
+   VULCAN DEFENSE - DASHBOARD (pós-login) - Tema preto completo
+   ========================================================================== */
+
+/* --- Fundo global do app --- */
+body:not(.security-login-page),
+.kibanaWelcome,
+#kibana-body,
+.app-wrapper,
+.euiPage,
+.euiPageBody,
+.euiPageContent,
+.euiPageContentBody,
+.osdAppContainer,
+[data-test-subj="kibanaChrome"],
+[class*="kbnAppWrapper"] {
+  background: #0a0a0b !important;
+  background-color: #0a0a0b !important;
+}
+
+/* --- Header/top bar --- */
+.euiHeader,
+.euiHeader--dark,
+[data-test-subj="headerGlobalNav"],
+[class*="headerGlobalNav"],
+.kbnTopNav {
+  background: rgba(12, 12, 13, 0.98) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 1px 0 rgba(212, 175, 55, 0.05) !important;
+}
+
+.euiHeaderLink:hover,
+.euiHeaderSectionItem button:hover {
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-radius: 6px;
+}
+
+/* --- Sidebar / navegação lateral --- */
+.euiSideNav,
+.euiCollapsibleNav,
+[data-test-subj="navDrawer"],
+[class*="sideNav"],
+.wz-side-nav,
+.navDrawer {
+  background: rgba(8, 8, 9, 0.98) !important;
+  border-right: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
+
+.euiSideNavItem button,
+.euiSideNavItem a,
+.euiCollapsibleNav__item {
+  color: rgba(232, 230, 227, 0.85) !important;
+}
+
+.euiSideNavItem button:hover,
+.euiSideNavItem a:hover,
+.euiCollapsibleNav__item:hover {
+  background: rgba(212, 175, 55, 0.06) !important;
+  color: #d4af37 !important;
+}
+
+.euiSideNavItem.euiSideNavItem-isSelected button,
+.euiSideNavItem.euiSideNavItem-isSelected a,
+.euiSideNavItem--isSelected {
+  background: rgba(212, 175, 55, 0.12) !important;
+  color: #d4af37 !important;
+  border-left: 2px solid #d4af37;
+}
+
+/* --- Panels e cards --- */
+.euiPanel,
+.euiCard,
+[data-test-subj="dashboardPanel"],
+.wz-panel,
+.euiCard__content {
+  background: rgba(15, 15, 16, 0.95) !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.euiPanel:hover,
+.euiCard:hover {
+  border-color: rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.05) !important;
+}
+
+/* --- Tabelas e data grids --- */
+.euiTable,
+.euiTableHeaderCell,
+.euiDataGrid,
+.euiDataGridHeaderCell,
+.euiDataGridRowCell {
+  background: rgba(10, 10, 11, 0.9) !important;
+  border-color: rgba(212, 175, 55, 0.15) !important;
+  color: rgba(232, 230, 227, 0.9) !important;
+}
+
+.euiTableHeaderCell,
+.euiDataGridHeaderCell {
+  background: rgba(18, 18, 19, 0.95) !important;
+  color: #d4af37 !important;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+}
+
+.euiTableRow:hover,
+.euiDataGridRow:hover {
+  background: rgba(212, 175, 55, 0.04) !important;
+}
+
+/* --- Formulários e inputs --- */
+.euiFormControlLayout,
+.euiFieldText,
+.euiFieldNumber,
+.euiFieldPassword,
+.euiSelect,
+.euiTextArea,
+.euiComboBoxInput {
+  background: rgba(5, 5, 6, 0.8) !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border-radius: 8px !important;
+  color: #e8e6e3 !important;
+}
+
+.euiFieldText:focus,
+.euiFieldPassword:focus,
+.euiSelect:focus,
+.euiComboBoxInput:focus {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15) !important;
+}
+
+/* --- Botões --- */
+body:not(.security-login-page) .euiButton--primary,
+body:not(.security-login-page) .euiButton--fill {
+  background: linear-gradient(135deg, #c9a227 0%, #d4af37 50%, #b8960f 100%) !important;
+  border: none !important;
+  color: #0a0a0b !important;
+  border-radius: 8px !important;
+}
+
+body:not(.security-login-page) .euiButton--primary:hover,
+body:not(.security-login-page) .euiButton--fill:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25) !important;
+}
+
+.euiButton--secondary,
+.euiButton--empty {
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  color: #d4af37 !important;
+  background: transparent !important;
+}
+
+.euiButton--secondary:hover,
+.euiButton--empty:hover {
+  background: rgba(212, 175, 55, 0.1) !important;
+}
+
+/* --- Tabs --- */
+.euiTabs,
+.euiTab {
+  border-color: rgba(212, 175, 55, 0.2) !important;
+  color: rgba(232, 230, 227, 0.8) !important;
+}
+
+.euiTab.euiTab-isSelected {
+  color: #d4af37 !important;
+  border-bottom: 2px solid #d4af37 !important;
+}
+
+/* --- Modais --- */
+.euiModal,
+.euiModalHeader,
+.euiModalBody,
+.euiModalFooter {
+  background: rgba(12, 12, 13, 0.98) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 12px !important;
+}
+
+.euiModalHeader {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+}
+
+/* --- Breadcrumbs e títulos --- */
+.euiBreadcrumb,
+.euiTitle,
+.euiText,
+.euiLink {
+  color: rgba(232, 230, 227, 0.9) !important;
+}
+
+.euiTitle {
+  color: #e8e6e3 !important;
+}
+
+.euiLink:hover {
+  color: #d4af37 !important;
+}
+
+/* --- Callouts e badges --- */
+.euiCallOut,
+.euiCallout {
+  background: rgba(18, 18, 19, 0.9) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 8px !important;
+}
+
+.euiBadge {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: #d4af37 !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 6px !important;
+}
+
+/* --- Loading e empty states --- */
+.euiLoadingChart,
+.euiProgress {
+  background: rgba(212, 175, 55, 0.15) !important;
+}
+
+.euiLoadingChart__bar,
+.euiProgress__value {
+  background: linear-gradient(90deg, #c9a227, #d4af37) !important;
+}
+
+.euiEmptyPrompt {
+  background: rgba(15, 15, 16, 0.6) !important;
+  border: 1px dashed rgba(212, 175, 55, 0.2) !important;
+  border-radius: 12px !important;
+  color: rgba(232, 230, 227, 0.8) !important;
+}
+
+/* --- Dropdowns e popovers --- */
+.euiPopover,
+.euiPopover__panel,
+.euiContextMenu,
+.euiContextMenuPanel {
+  background: rgba(12, 12, 13, 0.98) !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --- Wazuh-specific --- */
+.wz-home,
+.wz-module,
+.wz-module-agent,
+.wz-discover,
+.wz-dashboard,
+[class*="wz-"] {
+  background: transparent !important;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 11, 0.8);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.4);
 }
