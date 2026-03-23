@@ -13,6 +13,15 @@
 - **Acentos dourados**: Bordas, botões primários, itens selecionados
 - **Design moderno**: Glassmorphism sutil, scrollbar personalizada, hover states
 
+## Tela de Health Check (verificação)
+
+- **Fundo preto** com gradientes dourados e grid sutil
+- **Logo 3D**: Animação flutuante com leve rotação em Y
+- **Cubo 3D**: Elemento animado durante a verificação
+- **Anéis pulsantes**: Efeito de onda durante o loading
+- **Card glassmorphism**: Painel dos checks com perspectiva 3D
+- **Itens animados**: Entrada sequencial com stagger effect
+
 ## Injeção automática de CSS
 
 O nginx (nginx.dashboard) injeta automaticamente o `vulcan-login.css` em todas as páginas, incluindo a tela de login. Não é necessário usar extensão de navegador.

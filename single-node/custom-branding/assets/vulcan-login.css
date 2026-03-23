@@ -455,6 +455,261 @@ body:not(.security-login-page) .euiButton--fill:hover {
   background: transparent !important;
 }
 
+/* ==========================================================================
+   VULCAN DEFENSE - TELA DE HEALTH CHECK (verificação) - Interface moderna 3D
+   ========================================================================== */
+
+/* --- Container da tela de checks --- */
+[class*="health-check"],
+[class*="healthCheck"],
+[class*="HealthCheck"],
+[class*="healthCheckWrapper"],
+[class*="checks-panel"],
+[data-test-subj*="healthCheck"],
+[data-test-subj*="health-check"],
+[data-test-subj*="wazuhChecks"],
+.wz-health-check,
+.wz-check-view {
+  perspective: 1200px !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #0a0a0b !important;
+  background-image: 
+    radial-gradient(ellipse 140% 100% at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(212, 175, 55, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 20% 30%, rgba(197, 160, 89, 0.03) 0%, transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(197, 160, 89, 0.03) 0%, transparent 35%) !important;
+  padding: 2rem !important;
+}
+
+/* --- Logo na tela de health check - animação 3D flutuante --- */
+[class*="health-check"] img[src*="logo"],
+[class*="healthCheck"] img,
+[class*="health-check"] .euiImage img,
+[data-test-subj*="healthCheck"] img,
+.wz-health-check img,
+[class*="health-check"] [class*="logo"] {
+  animation: vulcan-health-logo-3d 4s ease-in-out infinite !important;
+  filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3)) !important;
+}
+
+@keyframes vulcan-health-logo-3d {
+  0%, 100% { 
+    transform: perspective(500px) rotateY(0deg) translateY(0) scale(1); 
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+  }
+  25% { 
+    transform: perspective(500px) rotateY(-5deg) translateY(-4px) scale(1.02); 
+    filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.4));
+  }
+  50% { 
+    transform: perspective(500px) rotateY(0deg) translateY(0) scale(1); 
+    filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.35));
+  }
+  75% { 
+    transform: perspective(500px) rotateY(5deg) translateY(-4px) scale(1.02); 
+    filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.4));
+  }
+}
+
+/* --- Cubo 3D animado durante verificação (acima do conteúdo) --- */
+[class*="health-check"] > .euiPageContent::before,
+[class*="healthCheck"] .euiPageContent__verticalRhythm::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: -25px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(197, 160, 89, 0.2) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  animation: vulcan-cube-3d 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+@keyframes vulcan-cube-3d {
+  0%, 100% { 
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1); 
+    opacity: 0.8;
+  }
+  25% { 
+    transform: perspective(400px) rotateX(10deg) rotateY(90deg) scale(1.05); 
+    opacity: 1;
+  }
+  50% { 
+    transform: perspective(400px) rotateX(-5deg) rotateY(180deg) scale(1); 
+    opacity: 0.9;
+  }
+  75% { 
+    transform: perspective(400px) rotateX(5deg) rotateY(270deg) scale(1.05); 
+    opacity: 1;
+  }
+}
+
+/* --- Card principal dos checks - glassmorphism 3D --- */
+[class*="health-check"] .euiPanel,
+[class*="healthCheck"] .euiPanel,
+[class*="health-check"] .euiCard,
+[class*="health-check"] [class*="checkList"],
+[class*="health-check"] [class*="listGroup"],
+[data-test-subj*="healthCheck"] .euiPanel {
+  background: rgba(12, 12, 13, 0.92) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 175, 55, 0.08),
+    0 10px 40px -10px rgba(212, 175, 55, 0.1) !important;
+  transform: perspective(1000px) rotateX(1deg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+  position: relative;
+  z-index: 1;
+}
+
+[class*="health-check"] .euiPanel:hover,
+[class*="healthCheck"] .euiPanel:hover {
+  transform: perspective(1000px) rotateX(0deg) translateY(-2px) !important;
+  box-shadow: 
+    0 30px 60px -12px rgba(0, 0, 0, 0.6),
+    0 0 40px -5px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* --- Itens da lista de checks - animação sequencial --- */
+[class*="health-check"] .euiListGroupItem,
+[class*="health-check"] .euiAccordion,
+[class*="health-check"] [class*="checkItem"],
+[class*="health-check"] .euiListItem,
+[data-test-subj*="healthCheck"] [class*="Item"] {
+  animation: vulcan-check-item-in 0.5s ease-out backwards !important;
+  border-left: 3px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 8px !important;
+  background: rgba(5, 5, 6, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+[class*="health-check"] .euiListGroupItem:nth-child(1) { animation-delay: 0.1s; }
+[class*="health-check"] .euiListGroupItem:nth-child(2) { animation-delay: 0.2s; }
+[class*="health-check"] .euiListGroupItem:nth-child(3) { animation-delay: 0.3s; }
+[class*="health-check"] .euiListGroupItem:nth-child(4) { animation-delay: 0.4s; }
+[class*="health-check"] .euiListGroupItem:nth-child(5) { animation-delay: 0.5s; }
+[class*="health-check"] .euiListGroupItem:nth-child(6) { animation-delay: 0.6s; }
+[class*="health-check"] .euiAccordion:nth-child(1) { animation-delay: 0.1s; }
+[class*="health-check"] .euiAccordion:nth-child(2) { animation-delay: 0.2s; }
+[class*="health-check"] .euiAccordion:nth-child(3) { animation-delay: 0.3s; }
+[class*="health-check"] .euiAccordion:nth-child(4) { animation-delay: 0.4s; }
+[class*="health-check"] .euiAccordion:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes vulcan-check-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px) perspective(200px) rotateY(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) perspective(200px) rotateY(0deg);
+  }
+}
+
+/* --- Spinner de loading - efeito 3D orbital --- */
+[class*="health-check"] .euiLoadingSpinner,
+[class*="healthCheck"] .euiLoadingSpinner,
+[class*="health-check"] [class*="Loading"],
+[class*="health-check"] .euiIcon--loading,
+[data-test-subj*="healthCheck"] [class*="loading"] {
+  animation: vulcan-spinner-3d 1.2s linear infinite !important;
+}
+
+@keyframes vulcan-spinner-3d {
+  from { transform: perspective(200px) rotateZ(0deg); }
+  to { transform: perspective(200px) rotateZ(360deg); }
+}
+
+/* --- Anéis pulsantes durante verificação --- */
+[class*="health-check"] .euiPageContent,
+[class*="healthCheck"] .euiPageContent {
+  position: relative !important;
+}
+
+[class*="health-check"] .euiPageContent::after,
+[class*="healthCheck"] .euiPageContent::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 50%;
+  animation: vulcan-pulse-rings 2s ease-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes vulcan-pulse-rings {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+    border-color: rgba(212, 175, 55, 0.05);
+  }
+}
+
+/* --- Título "Health check" ou similar --- */
+[class*="health-check"] .euiTitle,
+[class*="healthCheck"] .euiTitle,
+[class*="health-check"] h1,
+[class*="health-check"] h2 {
+  color: #d4af37 !important;
+  text-shadow: 0 0 40px rgba(212, 175, 55, 0.2) !important;
+  font-weight: 600 !important;
+}
+
+/* --- Ícone de sucesso/erro nos checks --- */
+[class*="health-check"] .euiIcon--success,
+[class*="health-check"] [class*="success"] {
+  color: #d4af37 !important;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)) !important;
+}
+
+[class*="health-check"] .euiIcon--danger,
+[class*="health-check"] [class*="error"] {
+  color: #e74c3c !important;
+}
+
+/* --- Grid sutil de fundo na tela de checks --- */
+[class*="health-check"]::after,
+[class*="healthCheck"]::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: vulcan-grid-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* --- Scrollbar --- */
 ::-webkit-scrollbar {
   width: 8px;
