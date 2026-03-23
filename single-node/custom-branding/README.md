@@ -45,7 +45,7 @@ O nginx (nginx.dashboard) injeta automaticamente o `vulcan-login.css` em todas a
 ```
 custom-branding/
 ├── images/
-│   └── vulcan-logo.png    # Logo VULCAN DEFENSE (ouro sobre preto)
+│   └── vulcan-logo.png    # Logo VULCAN DEFENSE (ouro sobre preto, usado também como favicon)
 ├── assets/
 │   └── vulcan-login.css   # Estilos (tela preta + animações)
 ├── css/
