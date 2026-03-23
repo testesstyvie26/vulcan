@@ -1,5 +1,6 @@
-# Vulcan Defense custom logo (login/loading screen)
+# Vulcan Defense custom logos (login, loading, health-check)
 customization.logo.app: "custom/images/vulcan-logo.png"
+customization.logo.healthcheck: "custom/images/vulcan-logo.png"
 
 hosts:
   - 1513629884013:
