@@ -94,7 +94,34 @@ bash fix-internal-users.sh
 
 Ou manualmente: gere os hashes com `hash.sh -p 'sua_senha'` no container, atualize `config/wazuh_indexer/internal_users.yml` e rode o `securityadmin` (porta **9200**).
 
-### 7. Erro "Not yet initialized (you may need to run securityadmin)"
+### 7. "Vulcan Defense did not load properly"
+
+Erro genérico que geralmente indica falha do plugin Wazuh ao conectar na API. Verifique:
+
+**A) Wazuh API acessível:**
+```bash
+# Do host (porta 55000 do manager)
+curl -k -u wazuh-wui:MyS3cr37P450r.*- https://localhost:55000/version
+
+# Do container do dashboard
+docker compose exec wazuh.dashboard curl -k -u wazuh-wui:MyS3cr37P450r.*- https://wazuh.manager:55000/version
+```
+
+**B) Logs do dashboard** (procure por erros de conexão com wazuh.manager):
+```bash
+docker compose logs wazuh.dashboard
+```
+
+**C) Se o manager estiver reiniciando** – o dashboard tenta carregar antes da API estar pronta. Aguarde 2–3 min e recarregue a página.
+
+**D) Conferir wazuh.yml** – em `config/wazuh_dashboard/wazuh.yml` devem estar `url: "https://wazuh.manager"`, `port: 55000`, `username: wazuh-wui` e `password` iguais ao `API_PASSWORD` do docker-compose.
+
+**E) Testar sem sub_filter** – comentar temporariamente as linhas `sub_filter` em `config/nginx/nginx.conf`, reiniciar nginx e testar:
+```bash
+docker compose restart nginx.dashboard
+```
+
+### 8. Erro "Not yet initialized (you may need to run securityadmin)"
 
 Se os logs do indexer mostrarem esse erro, inicialize o plugin de segurança manualmente:
 
