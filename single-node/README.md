@@ -84,7 +84,17 @@ docker compose logs -f wazuh.dashboard
 ```
 Procure erros de conexão (ECONNREFUSED, 401, etc.).
 
-### 6. Erro "Not yet initialized (you may need to run securityadmin)"
+### 6. Erro "Authentication finally failed" (admin / kibanaserver)
+
+As senhas no `internal_users.yml` precisam corresponder ao `docker-compose` (admin: `V3yulcan442`, kibanaserver: `kibanaserver`). Execute o script de correção:
+
+```bash
+bash fix-internal-users.sh
+```
+
+Ou manualmente: gere os hashes com `hash.sh -p 'sua_senha'` no container, atualize `config/wazuh_indexer/internal_users.yml` e rode o `securityadmin` (porta **9200**).
+
+### 7. Erro "Not yet initialized (you may need to run securityadmin)"
 
 Se os logs do indexer mostrarem esse erro, inicialize o plugin de segurança manualmente:
 
@@ -101,7 +111,7 @@ docker compose exec wazuh.indexer bash -c '
   KEY=/usr/share/wazuh-indexer/config/certs/admin-key.pem
   bash plugins/opensearch-security/tools/securityadmin.sh \
     -cd config/opensearch-security/ \
-    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9300 -icl
+    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9200 -icl
 '
 
 # 3. Reiniciar o dashboard para reconectar
@@ -118,6 +128,6 @@ docker compose exec wazuh.indexer bash -c '
   KEY=/usr/share/wazuh-indexer/config/certs/admin-key.pem
   bash plugins/opensearch-security/tools/securityadmin.sh \
     -cd plugins/opensearch-security/securityconfig/ \
-    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9300 -icl
+    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9200 -icl
 '
 ```
