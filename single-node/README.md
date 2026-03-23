@@ -83,3 +83,41 @@ docker compose up -d
 docker compose logs -f wazuh.dashboard
 ```
 Procure erros de conexão (ECONNREFUSED, 401, etc.).
+
+### 6. Erro "Not yet initialized (you may need to run securityadmin)"
+
+Se os logs do indexer mostrarem esse erro, inicialize o plugin de segurança manualmente:
+
+```bash
+# 1. Obter o nome do container do indexer
+docker compose ps
+
+# 2. Executar o securityadmin dentro do container (substitua CONTAINER pelo nome real, ex: vulcan-wazuh-indexer-1)
+docker compose exec wazuh.indexer bash -c '
+  cd /usr/share/wazuh-indexer
+  export JAVA_HOME=/usr/share/wazuh-indexer/jdk
+  CACERT=/usr/share/wazuh-indexer/config/certs/root-ca.pem
+  CERT=/usr/share/wazuh-indexer/config/certs/admin.pem
+  KEY=/usr/share/wazuh-indexer/config/certs/admin-key.pem
+  bash plugins/opensearch-security/tools/securityadmin.sh \
+    -cd config/opensearch-security/ \
+    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9300 -icl
+'
+
+# 3. Reiniciar o dashboard para reconectar
+docker compose restart wazuh.dashboard
+```
+
+**Nota:** Se `config/opensearch-security/` não tiver todos os arquivos (config.yml, roles.yml, etc.), use o diretório padrão do plugin:
+```bash
+docker compose exec wazuh.indexer bash -c '
+  cd /usr/share/wazuh-indexer
+  export JAVA_HOME=/usr/share/wazuh-indexer/jdk
+  CACERT=/usr/share/wazuh-indexer/config/certs/root-ca.pem
+  CERT=/usr/share/wazuh-indexer/config/certs/admin.pem
+  KEY=/usr/share/wazuh-indexer/config/certs/admin-key.pem
+  bash plugins/opensearch-security/tools/securityadmin.sh \
+    -cd plugins/opensearch-security/securityconfig/ \
+    -nhnv -cacert $CACERT -cert $CERT -key $KEY -p 9300 -icl
+'
+```
